@@ -28,9 +28,9 @@ jobs:
           queries: security-and-quality
           languages: ${{ matrix.languages }}
 
-      - if: matrix.languages == 'csharp'
-        name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
+      # - if: matrix.languages == 'csharp'
+      #   name: Setup tmate session
+      #   uses: mxschmitt/action-tmate@v3
 
       - if: matrix.languages == 'csharp'
         name: Build solution
@@ -45,15 +45,15 @@ jobs:
           # so that CodeQL only analyzes the source code
           dotnet sln $pathToSolution remove $testProjects
 
-          dotnet nuget locals all --clear
-
           nuget locals all -clear
 
           nuget restore $pathToSolution
 
           msbuild $pathToSolution `
           -property:Configuration=$buildConfiguration `
-          -property:UseSharedCompilation=$useSharedCompilation
+          -property:UseSharedCompilation=$useSharedCompilation `
+          -property:VsTarget=15.0 `
+          -property:VisualStudioVersion=15.0
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v1
