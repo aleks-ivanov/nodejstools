@@ -15,6 +15,9 @@ jobs:
       matrix:
         languages: [ csharp, javascript ]
     steps:
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v1.0.2
+
       - name: Checkout repository
         uses: actions/checkout@v2
 
@@ -36,9 +39,6 @@ jobs:
           # remove one or more test projects, 
           # so that CodeQL only analyzes the source code
           dotnet sln $pathToSolution remove $testProjects
-
-          dotnet clean $pathToSolution `
-          --configuration $buildConfiguration
 
           dotnet nuget locals all --clear
 
