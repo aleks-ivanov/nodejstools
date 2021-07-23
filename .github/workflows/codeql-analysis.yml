@@ -10,12 +10,13 @@ on:
 jobs:
   analyze:
     name: Analyze
-    runs-on: windows-latest
+    runs-on: windows-2016
     strategy:
       matrix:
         languages: [ csharp, javascript ]
     steps:
-      - name: Add msbuild to PATH
+      - if: matrix.languages == 'csharp'
+        name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.0.2
 
       - name: Checkout repository
