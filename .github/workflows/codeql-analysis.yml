@@ -1,0 +1,56 @@
+name: CodeQL Analysis
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '0 8 * * *'
+  workflow_dispatch:
+
+jobs:
+  analyze:
+    name: Analyze
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        languages: [ csharp, javascript ]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v1
+        with:
+          queries: security-and-quality
+          languages: ${{ matrix.languages }}
+
+      - if: matrix.languages == 'csharp'
+        name: Build solution
+        shell: pwsh
+        run: |
+          $pathToSolution = "Nodejs\NodejsTools.sln"
+          $buildConfiguration = "Release"
+          $useSharedCompilation = "false"
+          $testProjects = "Tests/TestAdapter.Tests/TestAdapter.Tests.csproj"
+
+          # remove one or more test projects, 
+          # so that CodeQL only analyzes the source code
+          dotnet sln $pathToSolution remove $testProjects
+
+          dotnet clean $pathToSolution `
+          --configuration $buildConfiguration
+
+          dotnet nuget locals all --clear
+
+          nuget locals all -clear
+
+          nuget restore $pathToSolution
+
+          msbuild $pathToSolution `
+          -property:Configuration=$buildConfiguration `
+          -property:UseSharedCompilation=$useSharedCompilation
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v1
+
+# Built with ❤ by [Pipeline Foundation](https://pipeline.foundation)
