@@ -96,7 +96,7 @@
       <Version>17.0.0-previews-1-31318-023</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.TemplateWizardInterface" >
-      <Version>17.0.0-previews-1-31318-023</Version>
+      <Version>17.0.0-previews-1-31410-258</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="..\Nodejs\SharedResources.proj" />
