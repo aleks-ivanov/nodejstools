@@ -90,7 +90,7 @@
       <Version>16.10.0-release-20210429-01</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Interop">
-      <Version>17.0.0-preview-2-31221-277</Version>
+      <Version>17.0.0-previews-2-31512-422</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Shell.15.0">
       <Version>17.0.0-preview-2-31221-277</Version>
