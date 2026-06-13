@@ -958,7 +958,7 @@
       <Version>17.0.0-previews-1-31318-023</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.SDK">
-      <Version>17.0.0-previews-1-31321-311</Version>
+      <Version>17.2.32505.173</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.TestWindow.Interfaces">
       <Version>17.0.0-beta.21223.1</Version>
